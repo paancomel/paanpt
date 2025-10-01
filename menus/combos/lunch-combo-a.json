@@ -1,0 +1,9 @@
+{
+  "id": "combo_lunch_a",
+  "name": "Lunch Combo A",
+  "items": [
+    { "menu_id": "menu_kebab", "portion_multiplier": 1 },
+    { "menu_id": "menu_burger", "portion_multiplier": 1 }
+  ],
+  "status": "Draft"
+}

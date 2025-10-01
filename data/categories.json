@@ -1,0 +1,7 @@
+[
+  { "id": "cat_protein", "name": "Protein", "parent_id": null },
+  { "id": "cat_protein_beef", "name": "Beef", "parent_id": "cat_protein" },
+  { "id": "cat_bakery", "name": "Bakery", "parent_id": null },
+  { "id": "cat_bakery_pita", "name": "Pita", "parent_id": "cat_bakery" },
+  { "id": "cat_sauce", "name": "Sauces", "parent_id": null }
+]
