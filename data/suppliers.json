@@ -1,0 +1,5 @@
+[
+  { "id": "sup_bakery_a", "name": "Sunrise Bakery", "contacts": { "phone": "+60 12-345 6789" } },
+  { "id": "sup_meat_a", "name": "Malay Meats", "contacts": { "phone": "+60 17-555 1212" } },
+  { "id": "sup_condiments_a", "name": "Condimix Sdn Bhd", "contacts": { "phone": "+60 19-222 3344" } }
+]

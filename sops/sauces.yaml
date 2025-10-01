@@ -1,0 +1,17 @@
+name: Sauce Base SOP
+yield: 2 liters
+steps:
+  - step_no: 1
+    station: Cold
+    timer_sec: 180
+    instruction: Mix dry spices.
+  - step_no: 2
+    station: Cold
+    timer_sec: 600
+    instruction: Whisk with liquids until smooth.
+checklists:
+  - title: Closing
+    frequency: daily
+    items:
+      - Clean station
+      - Chill remaining sauce
