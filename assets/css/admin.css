@@ -1,0 +1,84 @@
+.kyros-fnb-admin {
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+  border-top: 5px solid #d91c1c;
+}
+
+.kyros-fnb-admin .kyros-fnb-toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.kyros-fnb-admin table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 24px;
+}
+
+.kyros-fnb-admin table thead {
+  background: #f9f3f3;
+  color: #611010;
+}
+
+.kyros-fnb-admin table th,
+.kyros-fnb-admin table td {
+  border: 1px solid #e2e8f0;
+  padding: 10px;
+  text-align: left;
+}
+
+.kyros-fnb-admin input[type="text"],
+.kyros-fnb-admin input[type="number"],
+.kyros-fnb-admin select {
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid #cbd5e1;
+}
+
+.kyros-fnb-admin .kyros-fnb-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.kyros-fnb-admin .kyros-fnb-card {
+  background: #fff5f5;
+  border: 1px solid #fdd5d5;
+  border-radius: 6px;
+  padding: 16px;
+}
+
+.kyros-fnb-admin .kyros-fnb-card h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.kyros-fnb-admin .button-primary,
+.kyros-fnb-admin .kyros-fnb-button-primary {
+  background: #d91c1c;
+  border-color: #b81717;
+  text-shadow: none;
+  box-shadow: none;
+}
+
+.kyros-fnb-admin .button-primary:hover,
+.kyros-fnb-admin .kyros-fnb-button-primary:hover {
+  background: #b81717;
+}
+
+.kyros-fnb-admin .kyros-fnb-chart {
+  min-height: 260px;
+  border: 1px dashed #fbb6b6;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c53030;
+  background: #fffaf7;
+}

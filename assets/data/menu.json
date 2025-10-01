@@ -1,0 +1,14 @@
+{
+  "id": "menu_kebab",
+  "name": "Kyros Kebab",
+  "yield_qty": 1,
+  "yield_unit": "serving",
+  "selling_price": 12.9,
+  "status": "Published",
+  "misc_pct": 0.1,
+  "items": [
+    { "ingredient_id": "ing_pita", "ingredient_name": "Pita Bread", "unit": "pcs", "cost_per_unit": 0.8, "quantity": 1 },
+    { "ingredient_id": "ing_beef", "ingredient_name": "Beef Slice", "unit": "g", "cost_per_unit": 0.035, "quantity": 120 },
+    { "ingredient_id": "ing_sauce_base", "ingredient_name": "Sauce Base", "unit": "ml", "cost_per_unit": 0.01, "quantity": 40 }
+  ]
+}
