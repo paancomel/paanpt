@@ -1,0 +1,4 @@
+date,supplier_id,ingredient_id,pack_size,pack_unit,pack_cost,unit_cost
+2025-10-01,sup_meat_a,ing_beef,10,kg,320,0.032
+2025-10-01,sup_bakery_a,ing_pita,100,pcs,75,0.75
+2025-10-01,sup_condiments_a,ing_sauce_base,5,l,60,0.012

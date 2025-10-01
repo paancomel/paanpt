@@ -1,0 +1,4 @@
+[
+  { "restaurant": "Brand A", "city": "KL", "item": "Kebab", "price": 13.5, "platform": "Foodpanda", "seen_at": "2025-10-01T10:05:00+08:00", "source": "https://example.com/a" },
+  { "restaurant": "Brand B", "city": "PJ", "item": "Kebab", "price": 14.9, "platform": "GrabFood", "seen_at": "2025-10-01T10:10:00+08:00", "source": "https://example.com/b" }
+]
