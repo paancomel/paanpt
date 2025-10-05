@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 set -e
+
+PLUGIN_SLUG="kyros-recipe-manager-Farhan"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+SCRIPT_PATH="$SCRIPT_DIR/$(basename "$0")"
+ZIP_PATH="$SCRIPT_DIR/${PLUGIN_SLUG}.zip"
+
+cd "$SCRIPT_DIR"
+
 python3 - <<'PY'
 from pathlib import Path
 ROOT = Path('kyros-recipe-manager-Farhan')
@@ -616,3 +624,11 @@ for rel, data in FILES.items():
     path.write_text(data)
 print(f'Generated plugin at {ROOT}')
 PY
+
+command -v zip >/dev/null || { echo "zip not found. Install it."; exit 1; }
+rm -f "$ZIP_PATH"
+(cd "$SCRIPT_DIR" && zip -rq "$ZIP_PATH" "$PLUGIN_SLUG" -x "*/.DS_Store")
+(cd "$SCRIPT_DIR" && zip -qj "$ZIP_PATH" "$SCRIPT_PATH")
+
+echo "Plugin packaged at $ZIP_PATH"
+echo "Next steps: WordPress Admin → Plugins → Add New → Upload Plugin."
