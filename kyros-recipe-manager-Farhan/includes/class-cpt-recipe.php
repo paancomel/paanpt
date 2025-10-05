@@ -18,6 +18,8 @@ class CPT_Recipe {
             ),
             'public' => false,
             'show_ui' => true,
+            'show_in_menu' => 'krm_ops',
+            'show_in_admin_bar' => false,
             'capability_type' => 'recipe',
             'map_meta_cap' => true,
             'supports' => array('title', 'thumbnail'),

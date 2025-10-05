@@ -11,6 +11,12 @@ class Admin {
 
     public static function menu() {
         add_menu_page(__('Recipe Ops', KRM_TEXT_DOMAIN), __('Recipe Ops', KRM_TEXT_DOMAIN), 'read', 'krm_ops', [__CLASS__, 'dashboard'], 'dashicons-food', 25);
+        remove_submenu_page('krm_ops', 'krm_ops');
+        add_submenu_page('krm_ops', __('Dashboard', KRM_TEXT_DOMAIN), __('Dashboard', KRM_TEXT_DOMAIN), 'read', 'krm_ops', [__CLASS__, 'dashboard']);
+        add_submenu_page('krm_ops', __('Ingredients', KRM_TEXT_DOMAIN), __('Ingredients', KRM_TEXT_DOMAIN), 'read_ingredient', 'edit.php?post_type=ingredient');
+        add_submenu_page('krm_ops', __('Add Ingredient', KRM_TEXT_DOMAIN), __('Add Ingredient', KRM_TEXT_DOMAIN), 'edit_ingredient', 'post-new.php?post_type=ingredient');
+        add_submenu_page('krm_ops', __('Recipes', KRM_TEXT_DOMAIN), __('Recipes', KRM_TEXT_DOMAIN), 'read_recipe', 'edit.php?post_type=recipe');
+        add_submenu_page('krm_ops', __('Add Recipe', KRM_TEXT_DOMAIN), __('Add Recipe', KRM_TEXT_DOMAIN), 'edit_recipe', 'post-new.php?post_type=recipe');
         add_submenu_page('krm_ops', __('Settings', KRM_TEXT_DOMAIN), __('Settings', KRM_TEXT_DOMAIN), 'krm_manage_settings', 'krm_settings', [__CLASS__, 'settings_page']);
     }
 
