@@ -20,11 +20,10 @@ class CPT_Ingredient {
             ),
             'public' => false,
             'show_ui' => true,
-            'show_in_menu' => 'krm_ops',
-            'show_in_admin_bar' => false,
             'capability_type' => 'ingredient',
             'map_meta_cap' => true,
             'supports' => array('title'),
+            'show_in_menu' => 'krm_ops',
             'menu_icon' => 'dashicons-carrot',
         ));
     }
@@ -40,8 +39,8 @@ class CPT_Ingredient {
         $price_per_base = get_post_meta($post->ID, 'krm_price_per_base', true) ?: '0';
         $supplier_name = get_post_meta($post->ID, 'krm_supplier_name', true);
         $supplier_contact = get_post_meta($post->ID, 'krm_supplier_contact', true);
-        $family = get_post_meta($post->ID, 'krm_measurement_family', true) ?: 'mass'; // mass|volume|piece
-        $density = get_post_meta($post->ID, 'krm_density', true); // g/ml optional
+        $family = get_post_meta($post->ID, 'krm_measurement_family', true) ?: 'mass';
+        $density = get_post_meta($post->ID, 'krm_density', true);
         $allergens_master = opt('krm_allergens_master', array());
         $allergens = (array) get_post_meta($post->ID, 'krm_allergens', true);
         ?>
@@ -49,9 +48,9 @@ class CPT_Ingredient {
             <tr><th><?php _e('Measurement Family', KRM_TEXT_DOMAIN); ?></th>
                 <td>
                     <select name="krm_measurement_family">
-                        <option value="mass" <?php selected($family,'mass'); ?>>mass (g/kg)</option>
-                        <option value="volume" <?php selected($family,'volume'); ?>>volume (ml/L)</option>
-                        <option value="piece" <?php selected($family,'piece'); ?>>piece</option>
+                        <option value="mass" <?php selected($family, 'mass'); ?>>mass (g/kg)</option>
+                        <option value="volume" <?php selected($family, 'volume'); ?>>volume (ml/L)</option>
+                        <option value="piece" <?php selected($family, 'piece'); ?>>piece</option>
                     </select>
                     <p class="description"><?php _e('Choose how this ingredient is measured.', KRM_TEXT_DOMAIN); ?></p>
                 </td></tr>
@@ -72,7 +71,7 @@ class CPT_Ingredient {
             <tr><th><?php _e('Allergens', KRM_TEXT_DOMAIN); ?></th>
                 <td>
                     <?php foreach ($allergens_master as $a): ?>
-                      <label style="display:inline-block;margin-right:10px;"><input type="checkbox" name="krm_allergens[]" value="<?php echo esc_attr($a); ?>" <?php checked(in_array($a,$allergens,true)); ?> /> <?php echo esc_html($a); ?></label>
+                      <label style="display:inline-block;margin-right:10px;"><input type="checkbox" name="krm_allergens[]" value="<?php echo esc_attr($a); ?>" <?php checked(in_array($a, $allergens, true)); ?> /> <?php echo esc_html($a); ?></label>
                     <?php endforeach; ?>
                 </td>
             </tr>
@@ -81,28 +80,40 @@ class CPT_Ingredient {
     }
 
     public static function save($post_id, $post) {
-        if ($post->post_type !== 'ingredient') return;
-        if (!isset($_POST['krm_ing_nonce']) || !wp_verify_nonce($_POST['krm_ing_nonce'],'krm_ing_save')) return;
-        if (!current_user_can('edit_post', $post_id)) return;
+        if ($post->post_type !== 'ingredient') {
+            return;
+        }
+        if (!isset($_POST['krm_ing_nonce']) || !wp_verify_nonce($_POST['krm_ing_nonce'], 'krm_ing_save')) {
+            return;
+        }
+        if (!current_user_can('edit_post', $post_id)) {
+            return;
+        }
 
-        $fields = array('unit_base','weight_base','price_per_base','supplier_name','supplier_contact','measurement_family','density');
+        $fields = array('unit_base', 'weight_base', 'price_per_base', 'supplier_name', 'supplier_contact', 'measurement_family', 'density');
         foreach ($fields as $f) {
             $key = 'krm_' . $f;
             $val = isset($_POST[$key]) ? sanitize_text_field($_POST[$key]) : '';
             update_post_meta($post_id, $key, $val);
         }
-        $allergens = isset($_POST['krm_allergens']) ? array_map('sanitize_text_field', (array)$_POST['krm_allergens']) : array();
+        $allergens = isset($_POST['krm_allergens']) ? array_map('sanitize_text_field', (array) $_POST['krm_allergens']) : array();
         update_post_meta($post_id, 'krm_allergens', $allergens);
     }
 
     public static function cols($cols) {
-        $new = array(
-            'title' => __('Product', KRM_TEXT_DOMAIN),
-            'krm_base' => __('Base & Price', KRM_TEXT_DOMAIN),
-            'krm_supplier' => __('Supplier', KRM_TEXT_DOMAIN),
-            'krm_allergens' => __('Allergens', KRM_TEXT_DOMAIN),
-        );
-        return $new + $cols;
+        $ordered = array();
+        if (isset($cols['cb'])) {
+            $ordered['cb'] = $cols['cb'];
+        }
+        $ordered['title'] = __('Product', KRM_TEXT_DOMAIN);
+        $ordered['krm_base'] = __('Base & Price', KRM_TEXT_DOMAIN);
+        $ordered['krm_supplier'] = __('Supplier', KRM_TEXT_DOMAIN);
+        $ordered['krm_allergens'] = __('Allergens', KRM_TEXT_DOMAIN);
+        $ordered['krm_actions'] = __('Actions', KRM_TEXT_DOMAIN);
+        if (isset($cols['date'])) {
+            $ordered['date'] = $cols['date'];
+        }
+        return $ordered;
     }
 
     public static function col_content($col, $post_id) {
@@ -114,7 +125,12 @@ class CPT_Ingredient {
         } elseif ('krm_supplier' === $col) {
             echo esc_html(get_post_meta($post_id, 'krm_supplier_name', true));
         } elseif ('krm_allergens' === $col) {
-            echo esc_html(implode(',', (array) get_post_meta($post_id, 'krm_allergens', true)));
+            echo esc_html(implode(', ', (array) get_post_meta($post_id, 'krm_allergens', true)));
+        } elseif ('krm_actions' === $col) {
+            $edit = get_edit_post_link($post_id);
+            if ($edit) {
+                echo '<a class="button button-small" href="' . esc_url($edit) . '">' . esc_html__('Edit', KRM_TEXT_DOMAIN) . '</a>';
+            }
         }
     }
 }

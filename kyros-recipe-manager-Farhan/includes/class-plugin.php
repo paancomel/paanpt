@@ -28,8 +28,8 @@ class Plugin {
         wp_localize_script('krm-frontend', 'KRM', array(
             'ajax' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('krm_nonce'),
-            'currency' => opt('krm_currency','MYR'),
-            'miscDefault' => (int) opt('krm_misc_pct',10),
+            'currency' => opt('krm_currency', 'MYR'),
+            'miscDefault' => (int) opt('krm_misc_pct', 10),
         ));
     }
 
@@ -41,5 +41,12 @@ class Plugin {
             'allergens' => opt('krm_allergens_master', array()),
         ));
         wp_enqueue_style('krm-admin');
+
+        if (function_exists('get_current_screen')) {
+            $screen = get_current_screen();
+            if ($screen && in_array($screen->post_type ?? '', array('recipe'), true)) {
+                wp_enqueue_script('krm-admin-recipe');
+            }
+        }
     }
 }
