@@ -625,10 +625,16 @@ for rel, data in FILES.items():
 print(f'Generated plugin at {ROOT}')
 PY
 
-command -v zip >/dev/null || { echo "zip not found. Install it."; exit 1; }
-rm -f "$ZIP_PATH"
-(cd "$SCRIPT_DIR" && zip -rq "$ZIP_PATH" "$PLUGIN_SLUG" -x "*/.DS_Store")
-(cd "$SCRIPT_DIR" && zip -qj "$ZIP_PATH" "$SCRIPT_PATH")
+command -v zip >/dev/null 2>&1 || { echo "❌ 'zip' command not found. Install it (apt-get install zip / brew install zip) and re-run."; exit 1; }
 
-echo "Plugin packaged at $ZIP_PATH"
-echo "Next steps: WordPress Admin → Plugins → Add New → Upload Plugin."
+rm -f "$ZIP_PATH"
+
+(
+  cd "$SCRIPT_DIR" && zip -rq "$ZIP_PATH" "$PLUGIN_SLUG" -x "*/.DS_Store"
+)
+(
+  cd "$SCRIPT_DIR" && zip -qj "$ZIP_PATH" "$SCRIPT_PATH"
+)
+
+echo "✅ Packaged: $ZIP_PATH"
+echo "Next: WordPress Admin → Plugins → Add New → Upload Plugin → select ${PLUGIN_SLUG}.zip → Install → Activate."
