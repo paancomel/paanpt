@@ -1,0 +1,9 @@
+{
+  "apiVersion": 3,
+  "name": "krm/recipe-calculator",
+  "title": "Recipe Calculator",
+  "category": "widgets",
+  "icon": "clipboard",
+  "attributes": { "recipeId": { "type": "number", "default": 0 } },
+  "editorScript": "krm-block"
+}

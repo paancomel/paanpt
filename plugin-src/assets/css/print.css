@@ -1,0 +1,4 @@
+@media print {
+  .site-header,.site-footer,.widget-area,.krm-add,.krm-del,#wpadminbar{display:none!important}
+  .krm-card{box-shadow:none;border:none}
+}
